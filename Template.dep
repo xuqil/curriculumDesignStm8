@@ -2,45 +2,48 @@
 
 <project>
   <fileVersion>2</fileVersion>
-  <fileChecksum>3628266075</fileChecksum>
+  <fileChecksum>446392794</fileChecksum>
   <configuration>
     <name>Debug</name>
     <outputs>
-      <file>$PROJ_DIR$\Debug\Obj\stm8s_eeprom.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\handle.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\handle.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\stm8s_eeprom.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\key.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm8s_eeprom.o</file>
+      <file>$PROJ_DIR$\delay.c</file>
       <file>$PROJ_DIR$\Debug\Obj\key.o</file>
+      <file>$PROJ_DIR$\stm8s_eeprom.c</file>
+      <file>$PROJ_DIR$\usart2.c</file>
+      <file>$PROJ_DIR$\lcd1602.c</file>
+      <file>$PROJ_DIR$\main.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\key.pbi</file>
+      <file>$PROJ_DIR$\key.c</file>
       <file>$PROJ_DIR$\stm8s_type.h</file>
       <file>$PROJ_DIR$\ds18b20.c</file>
-      <file>$PROJ_DIR$\main.c</file>
-      <file>$PROJ_DIR$\delay.c</file>
-      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
-      <file>$PROJ_DIR$\lcd1602.c</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
-      <file>$PROJ_DIR$\usart2.c</file>
-      <file>$TOOLKIT_DIR$\lib\dlstm8smn.a</file>
-      <file>$PROJ_DIR$\stm8s_eeprom.h</file>
-      <file>$PROJ_DIR$\key.c</file>
-      <file>$PROJ_DIR$\stm8s_eeprom.c</file>
-      <file>$PROJ_DIR$\key.h</file>
+      <file>$PROJ_DIR$\handle.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\ds18b20.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdlib.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\usart2.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\lcd1602.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\string.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.o</file>
       <file>$TOOLKIT_DIR$\inc\c\intrinsics.h</file>
       <file>$PROJ_DIR$\Debug\Obj\ds18b20.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\usart2.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\c\string.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\usart2.o</file>
-      <file>$TOOLKIT_DIR$\inc\c\stdlib.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\ds18b20.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\lcd1602.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\main.o</file>
+      <file>$TOOLKIT_DIR$\config\lnkstm8s105c6.icf</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
+      <file>$PROJ_DIR$\key.h</file>
+      <file>$PROJ_DIR$\stm8s_eeprom.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\main.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\lcd1602.pbi</file>
       <file>$TOOLKIT_DIR$\inc\c\ycheck.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\DLib_Product.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\xencoding_limits.h</file>
-      <file>$TOOLKIT_DIR$\lib\dlstm8smn.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\delay.pbi</file>
-      <file>$TOOLKIT_DIR$\config\lnkstm8s105c6.icf</file>
-      <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+      <file>$TOOLKIT_DIR$\lib\dlstm8smn.a</file>
       <file>$PROJ_DIR$\lcd1602.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\DLib_Defaults.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\delay.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\yvals.h</file>
+      <file>$TOOLKIT_DIR$\lib\dlstm8smn.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\xencoding_limits.h</file>
       <file>$PROJ_DIR$\ds18b20.h</file>
       <file>$TOOLKIT_DIR$\inc\io_macros.h</file>
       <file>$PROJ_DIR$\Debug\Obj\delay.o</file>
@@ -54,124 +57,33 @@
       <file>$TOOLKIT_DIR$\inc\c\ystdio.h</file>
       <file>$TOOLKIT_DIR$\inc\c\stdio.h</file>
       <file>$PROJ_DIR$\Debug\Obj\Template.pbd</file>
+      <file>$PROJ_DIR$\handle.c</file>
     </outputs>
-    <file>
-      <name>$PROJ_DIR$\ds18b20.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 18</file>
-        </tool>
-        <tool>
-          <name>ICCSTM8</name>
-          <file> 23</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 38 36 35</file>
-        </tool>
-        <tool>
-          <name>ICCSTM8</name>
-          <file> 35 38 36</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\main.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 8</file>
-        </tool>
-        <tool>
-          <name>ICCSTM8</name>
-          <file> 25</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 13 33 35 27 38 4 34 20 10 28 29 46 39 43 22 16 36 41 44 30 45 17</file>
-        </tool>
-        <tool>
-          <name>ICCSTM8</name>
-          <file> 38 36 46 27 33 10 30 28 29 44 41 45 34 39 35 43 20 22 13 4 16 17</file>
-        </tool>
-      </inputs>
-    </file>
     <file>
       <name>$PROJ_DIR$\delay.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 31</file>
+          <file> 34</file>
         </tool>
         <tool>
           <name>ICCSTM8</name>
-          <file> 37</file>
+          <file> 40</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 39</file>
+          <file> 42</file>
         </tool>
         <tool>
           <name>ICCSTM8</name>
-          <file> 39</file>
+          <file> 42</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\lcd1602.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 26</file>
-        </tool>
-        <tool>
-          <name>ICCSTM8</name>
-          <file> 24</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 36 38 34 39</file>
-        </tool>
-        <tool>
-          <name>ICCSTM8</name>
-          <file> 38 36 34 39</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\usart2.c</name>
-      <outputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 19</file>
-        </tool>
-        <tool>
-          <name>ICCSTM8</name>
-          <file> 21</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>BICOMP</name>
-          <file> 38 36 43</file>
-        </tool>
-        <tool>
-          <name>ICCSTM8</name>
-          <file> 43 38 36</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\key.c</name>
+      <name>$PROJ_DIR$\stm8s_eeprom.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
@@ -185,16 +97,149 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 38 36 16 39 17</file>
+          <file> 41 39 27</file>
         </tool>
         <tool>
           <name>ICCSTM8</name>
-          <file> 16 38 36 17 39</file>
+          <file> 27 41 39 12 49 30 35 33 36 25 37 47 44 48</file>
         </tool>
       </inputs>
     </file>
     <file>
-      <name>$PROJ_DIR$\stm8s_eeprom.c</name>
+      <name>$PROJ_DIR$\usart2.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 23</file>
+        </tool>
+        <tool>
+          <name>ICCSTM8</name>
+          <file> 17</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 41 39 46</file>
+        </tool>
+        <tool>
+          <name>ICCSTM8</name>
+          <file> 46 41 39</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\lcd1602.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 29</file>
+        </tool>
+        <tool>
+          <name>ICCSTM8</name>
+          <file> 18</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 39 41 32 42</file>
+        </tool>
+        <tool>
+          <name>ICCSTM8</name>
+          <file> 41 39 32 42</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\main.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 28</file>
+        </tool>
+        <tool>
+          <name>ICCSTM8</name>
+          <file> 20</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 21 27 30 38 36 37 12 32 19 44 47 35 49 42 46 16 26 14 39 33 25 41 48</file>
+        </tool>
+        <tool>
+          <name>ICCSTM8</name>
+          <file> 41 39 49 30 35 33 36 25 37 47 44 48 32 42 38 46 19 16 27 12 26 21 14</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\key.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 10</file>
+        </tool>
+        <tool>
+          <name>ICCSTM8</name>
+          <file> 5</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 48 12 49 33 16 44 41 14 39 35 21 27 30 26 37 47 36 25 19 42</file>
+        </tool>
+        <tool>
+          <name>ICCSTM8</name>
+          <file> 26 41 39 21 12 49 30 35 33 36 25 37 47 44 48 27 14 19 16 42</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\ds18b20.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 22</file>
+        </tool>
+        <tool>
+          <name>ICCSTM8</name>
+          <file> 15</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 41 39 38</file>
+        </tool>
+        <tool>
+          <name>ICCSTM8</name>
+          <file> 38 41 39</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>[ROOT_NODE]</name>
+      <outputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 45</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\Debug\Exe\Template.out</name>
+      <inputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 24 40 15 0 5 18 20 3 17 31 43</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\handle.c</name>
       <outputs>
         <tool>
           <name>BICOMP</name>
@@ -208,29 +253,11 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 38 36 13</file>
+          <file> 25 16 30 41 12 44 37 47 36 35 19 26 49 48 33 39 14 21 27</file>
         </tool>
         <tool>
           <name>ICCSTM8</name>
-          <file> 13 38 36 4 46 27 33 10 30 28 29 44 41 45</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>[ROOT_NODE]</name>
-      <outputs>
-        <tool>
-          <name>ILINK</name>
-          <file> 42</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\Debug\Exe\Template.out</name>
-      <inputs>
-        <tool>
-          <name>ILINK</name>
-          <file> 32 37 23 3 24 25 0 21 12 40</file>
+          <file> 14 12 49 30 35 33 36 25 37 47 44 48 19 16 26 41 39 21 27</file>
         </tool>
       </inputs>
     </file>

@@ -1,7 +1,10 @@
 #include "key.h"
 #include "delay.h"
 
-int value = 0;
+int value_limit = 0;
+int value_max = 0;
+char value_str[3];
+int value_flag = 0;
 
 void GPIO_KEY_Init(void)
 {
@@ -28,17 +31,27 @@ __interrupt void EXTI_PORTA_IRQHandler(void)
 	delay_ms(10);		//ÑÓÊ±Ïû¶¶
 	if(key0==0)
 	{
-		value ++ ;
+            value_limit -- ;
+            value_flag = 1;
 	}
 	
 	else if(key1==0)
 	{
-                ;
+            value_max ++;
+            value_flag = 2;
 	}
 	
-	else if(key2==0)
+	else if(key2==0&&value_flag)
 	{
-		;
+            if(value_flag == 1)
+            {
+              SaveToEEPROM(0, value_limit);
+            }
+            else if(value_flag == 2)
+            {
+               SaveToEEPROM(4, value_max);
+            }
+            value_flag = 0;
 	}
 }
 

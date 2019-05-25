@@ -8,36 +8,63 @@
 #include <stdlib.h>
 #include "stm8s_eeprom.h"
 #include "key.h"
+#include "stm8s_type.h"
+#include "handle.h"
 
 unsigned char arr0[16]="Temperature:    ";
 char buffer[8];
 
+
+
+
 int main(void)
 {  
-    u8 string = '1';
-    u8 result;
+    float tempetature;
+    u8 result0, result1, result2, result3;
+    int flag_limit, flag_max;
+    int i;
+    
     CLK_SWCR_SWEN = 1;
     CLK_SWR = 0xB4;    //HSE selected as master clock source
-    unsigned char i;
     
     UART_Init();
-     GPIO_KEY_Init();
+    GPIO_KEY_Init();
     __enable_interrupt();	//开启总中断
     LCD1602_Init();
     asm("rim");
-    EEPROM_Write(0, string);
-    result = EEPROM_Read(0);
+
+    tempetature = DS18B20_ReadTemperature();
+    value_limit = (int)tempetature; 
+    value_max = (int)tempetature;  
+    flag_limit = value_limit;
+    flag_max = value_max;
+    
+   
     while(1)
     {
+
+      
+        result0 = EEPROM_Read(0);
+        result1 = EEPROM_Read(1);
+        result2 = EEPROM_Read(4);
+        result3 = EEPROM_Read(5);
         _delay_ms(1000);
-        printf("温度：%.3fC\n", DS18B20_ReadTemperature());
-        printf("结果：%c  \n\n", result);
-        printf("value结果：%d  \\nn", value);
+        _delay_ms(1000);
+        printf("结果1：%c", result0);
+        printf("%c  \n\n", result1);
+        printf("结果2：%c", result2);
+        printf("%c  \n\n", result3);
+
+
+        //printf("下限：%d  \n\n", value_limit);
+        //printf("上限：%d  \n\n", value_max);
+        tempetature = DS18B20_ReadTemperature();
+        //printf("温度：%.3fC\n", tempetature);
         memset(buffer,'\0',sizeof(buffer)); //清空数组  
-        if(DS18B20_ReadTemperature() < 0)
-          sprintf(buffer,"%.3fC",DS18B20_ReadTemperature());
+        if(tempetature < 0)
+         sprintf(buffer,"%.3fC",tempetature);
         else
-          sprintf(buffer," %.3fC",DS18B20_ReadTemperature()); 
+          sprintf(buffer," %.3fC",tempetature); 
         Write_Commond(0x80);		//0x80为第一行的首地址
 	for(i=0; i<16; ++i)
 	{
@@ -51,6 +78,5 @@ int main(void)
 	}
     }
 }
-
 
 

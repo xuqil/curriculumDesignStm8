@@ -1593,6 +1593,9 @@
     <name>$PROJ_DIR$\ds18b20.c</name>
   </file>
   <file>
+    <name>$PROJ_DIR$\handle.c</name>
+  </file>
+  <file>
     <name>$PROJ_DIR$\key.c</name>
   </file>
   <file>
