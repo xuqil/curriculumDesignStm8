@@ -33,10 +33,16 @@
     <name>$PROJ_DIR$\ds18b20.c</name>
   </file>
   <file>
+    <name>$PROJ_DIR$\key.c</name>
+  </file>
+  <file>
     <name>$PROJ_DIR$\lcd1602.c</name>
   </file>
   <file>
     <name>$PROJ_DIR$\main.c</name>
+  </file>
+  <file>
+    <name>$PROJ_DIR$\stm8s_eeprom.c</name>
   </file>
   <file>
     <name>$PROJ_DIR$\usart2.c</name>

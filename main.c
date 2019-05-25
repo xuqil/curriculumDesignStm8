@@ -6,24 +6,33 @@
 #include "usart2.h"
 #include <string.h>
 #include <stdlib.h>
+#include "stm8s_eeprom.h"
+#include "key.h"
 
 unsigned char arr0[16]="Temperature:    ";
 char buffer[8];
 
 int main(void)
 {  
+    u8 string = '1';
+    u8 result;
     CLK_SWCR_SWEN = 1;
     CLK_SWR = 0xB4;    //HSE selected as master clock source
     unsigned char i;
     
     UART_Init();
+     GPIO_KEY_Init();
+    __enable_interrupt();	//开启总中断
     LCD1602_Init();
     asm("rim");
-    
+    EEPROM_Write(0, string);
+    result = EEPROM_Read(0);
     while(1)
     {
         _delay_ms(1000);
         printf("温度：%.3fC\n", DS18B20_ReadTemperature());
+        printf("结果：%c  \n\n", result);
+        printf("value结果：%d  \\nn", value);
         memset(buffer,'\0',sizeof(buffer)); //清空数组  
         if(DS18B20_ReadTemperature() < 0)
           sprintf(buffer,"%.3fC",DS18B20_ReadTemperature());
