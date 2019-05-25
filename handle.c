@@ -3,26 +3,26 @@
 /*****************************
 *          缓存
 ******************************/
-void SaveToTuple(int value)
+void SaveToTuple(char tuple[], int value)
 {
   memset(value_str,'\0',sizeof(value_str)); //清空数组   
   if (0 <= value)
   {
-    sprintf(value_str, "%d", value);
+    sprintf(tuple, "%d", value);
   }
   else if (value < 0)
   {
     value = -value;
-    sprintf(value_str, "%d", value);
+    sprintf(tuple, "%d", value);
   }
 }
 
 /*****************************
-*          write eeprom
+*          写数据
 ******************************/
-void SaveToEEPROM(u8 addr, int value)
+void SaveToEEPROM(u8 addr, int data)
 {
-  SaveToTuple(value);
+  SaveToTuple(value_str, data);
   
    int i;
    for(i = 0; i < sizeof(value_str); i++)
@@ -32,3 +32,4 @@ void SaveToEEPROM(u8 addr, int value)
         EEPROM_Write(addr + i,  (u8)value_str[i]); 
     }
 }
+

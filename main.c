@@ -12,70 +12,80 @@
 #include "handle.h"
 
 unsigned char arr0[16]="Temperature:    ";
+unsigned char arr1[16]="Welcom to use!  ";
 char buffer[8];
-
-
 
 
 int main(void)
 {  
     float tempetature;
-    u8 result0, result1, result2, result3;
-    int flag_limit, flag_max;
     int i;
+    char buffer_limit[3], buffer_max[3]; //缓存
     
     CLK_SWCR_SWEN = 1;
-    CLK_SWR = 0xB4;    //HSE selected as master clock source
+    CLK_SWR = 0xB4;             //主时钟
     
-    UART_Init();
-    GPIO_KEY_Init();
-    __enable_interrupt();	//开启总中断
-    LCD1602_Init();
+    UART_Init();                //串口初始化
+    GPIO_KEY_Init();            //按键初始化
+    __enable_interrupt();       //开启总中断
+    LCD1602_Init();             //LCD初始化
     asm("rim");
-
-    tempetature = DS18B20_ReadTemperature();
-    value_limit = (int)tempetature; 
-    value_max = (int)tempetature;  
-    flag_limit = value_limit;
-    flag_max = value_max;
-    
-   
+    tempetature = DS18B20_ReadTemperature(); // 获取温度值
+    sprintf(buffer_limit, "%c%c", EEPROM_Read(0), EEPROM_Read(1));
+    sprintf(buffer_max, "%c%c", EEPROM_Read(4), EEPROM_Read(5));
+    if(buffer_limit != '\0'|| buffer_max != '\0') //存储的数据不为空时,阈值从EEPROM取值
+    {
+      value_limit = atoi((char*)buffer_limit); 
+      value_max = atoi((char*)buffer_max); 
+    }
+    else //存储的数据为空时,阈值从现测温度值取值
+    {
+      value_limit = (int)tempetature; 
+      value_max = (int)tempetature; 
+    }
+     Write_Commond(0x80);		//0x80为第一行的首地址
+      for(i=0; i<16; ++i)
+      {
+            Write_Data(arr1[i]);
+      }
     while(1)
     {
+       if(write_flag == 0)
+      {
+         
+          if (read_flag) //当重新设置阈值时
+          {
+            memset(buffer_limit,'\0',sizeof(buffer_limit));
+            memset(buffer_max,'\0',sizeof(buffer_max));
+            sprintf(buffer_limit, "%c%c", EEPROM_Read(0), EEPROM_Read(1));
+            sprintf(buffer_max, "%c%c", EEPROM_Read(4), EEPROM_Read(5));
+            read_flag = 0;
+          }
+          _delay_ms(1000);
+          _delay_ms(1000);
+          printf("下限：%d", value_limit);
+          printf("上限：%d", value_max);
+        
 
-      
-        result0 = EEPROM_Read(0);
-        result1 = EEPROM_Read(1);
-        result2 = EEPROM_Read(4);
-        result3 = EEPROM_Read(5);
-        _delay_ms(1000);
-        _delay_ms(1000);
-        printf("结果1：%c", result0);
-        printf("%c  \n\n", result1);
-        printf("结果2：%c", result2);
-        printf("%c  \n\n", result3);
+          tempetature = DS18B20_ReadTemperature();
+          memset(buffer,'\0',sizeof(buffer)); //清空数组  
+          if(tempetature < 0)
+            sprintf(buffer,"%.3fC",tempetature);
+          else
+            sprintf(buffer," %.3fC",tempetature); 
+          Write_Commond(0x80);		//0x80为第一行的首地址
+          for(i=0; i<16; ++i)
+          {
+                Write_Data(arr0[i]);
+          }
+          
+          Write_Commond(0x80+0x40);	//0x80+0x40为第二行的首地址
+          for(i=0; i<sizeof(buffer); ++i)
+          {
+               Write_Data(buffer[i]);
+          }
+      }
 
-
-        //printf("下限：%d  \n\n", value_limit);
-        //printf("上限：%d  \n\n", value_max);
-        tempetature = DS18B20_ReadTemperature();
-        //printf("温度：%.3fC\n", tempetature);
-        memset(buffer,'\0',sizeof(buffer)); //清空数组  
-        if(tempetature < 0)
-         sprintf(buffer,"%.3fC",tempetature);
-        else
-          sprintf(buffer," %.3fC",tempetature); 
-        Write_Commond(0x80);		//0x80为第一行的首地址
-	for(i=0; i<16; ++i)
-	{
-		Write_Data(arr0[i]);
-	}
-	
-	Write_Commond(0x80+0x40);	//0x80+0x40为第二行的首地址
-	for(i=0; i<sizeof(buffer); ++i)
-	{
-		Write_Data(buffer[i]);
-	}
     }
 }
 

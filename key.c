@@ -4,7 +4,13 @@
 int value_limit = 0;
 int value_max = 0;
 char value_str[3];
-int value_flag = 0;
+int write_flag = 0;
+int read_flag = 0;
+
+int i;
+char display_limit[16];
+char display_max[16];
+char save_string[16] = "    Succeed!    ";
 
 void GPIO_KEY_Init(void)
 {
@@ -31,27 +37,66 @@ __interrupt void EXTI_PORTA_IRQHandler(void)
 	delay_ms(10);		//延时消抖
 	if(key0==0)
 	{
+            write_flag = 1;
             value_limit -- ;
-            value_flag = 1;
+            //SaveToTuple(display_limit, value_limit);
+            if(value_limit >= 10) 
+              sprintf(display_limit, "limit:%dC        ", value_limit);
+            else if(value_limit >= 100)
+              sprintf(display_limit, "limit:%dC       ", value_limit);
+            else if(0 <= value_limit < 10)
+              sprintf(display_limit, "limit:%dC         ", value_limit);
+            else if(-10 < value_limit < 0)
+              sprintf(display_limit, "limit:%dC        ", value_limit);
+            else if(value_limit < -10)
+              sprintf(display_limit, "limit:%dC       ", value_limit);
+            Write_Commond(0x80);		//0x80为第一行的首地址
+            for(i=0; i<16; ++i)
+            {
+                  Write_Data(display_limit[i]);
+            }
 	}
 	
 	else if(key1==0)
 	{
+            write_flag = 2;
             value_max ++;
-            value_flag = 2;
+            //SaveToTuple(display_max, value_max);
+            if(value_limit >= 10) 
+              sprintf(display_max, "max:%dC          ", value_max);
+            else if(value_limit >= 100) 
+              sprintf(display_max, "max:%dC         ", value_max);
+            else if(0 <= value_limit < 10) 
+              sprintf(display_max, "max:%dC           ", value_max);
+            else if(-10 < value_limit < 0) 
+              sprintf(display_max, "max:%dC          ", value_max);
+            else if(value_limit <= -10) 
+              sprintf(display_max, "max:%dC         ", value_max);
+            Write_Commond(0x80);		//0x80为第一行的首地址
+            for(i=0; i<16; ++i)
+            {
+                  Write_Data(display_max[i]);
+            }
+            
 	}
 	
-	else if(key2==0&&value_flag)
+	else if(key2==0&&write_flag)
 	{
-            if(value_flag == 1)
+            if(write_flag == 1)
             {
               SaveToEEPROM(0, value_limit);
             }
-            else if(value_flag == 2)
+            else if(write_flag == 2)
             {
                SaveToEEPROM(4, value_max);
             }
-            value_flag = 0;
+             Write_Commond(0x80);
+             for(i=0; i<16; ++i)
+            {
+                  Write_Data(save_string[i]);
+            }
+            write_flag = 0;
+            read_flag = 1;
 	}
 }
 
