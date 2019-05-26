@@ -8,6 +8,7 @@ int write_flag = 0;
 int read_flag = 0;
 
 int i;
+int mode=0; //模式选择，0设置下限，1设置上限
 char display_limit[16];
 char display_max[16];
 char save_string[16] = "    Succeed!    ";
@@ -38,57 +39,111 @@ __interrupt void EXTI_PORTA_IRQHandler(void)
 	if(key0==0)
 	{
             write_flag = 1;
-            value_limit -- ;
-            //SaveToTuple(display_limit, value_limit);
-            if(value_limit >= 10) 
-              sprintf(display_limit, "limit:%dC        ", value_limit);
-            else if(value_limit >= 100)
-              sprintf(display_limit, "limit:%dC       ", value_limit);
-            else if(0 <= value_limit < 10)
-              sprintf(display_limit, "limit:%dC         ", value_limit);
-            else if(-10 < value_limit < 0)
-              sprintf(display_limit, "limit:%dC        ", value_limit);
-            else if(value_limit < -10)
-              sprintf(display_limit, "limit:%dC       ", value_limit);
-            Write_Commond(0x80);		//0x80为第一行的首地址
-            for(i=0; i<16; ++i)
+            
+            if(mode == 0)
             {
-                  Write_Data(display_limit[i]);
+               value_limit -- ;
+              memset(display_limit,'\0',sizeof(display_limit));
+              if(value_limit >= 10) 
+                sprintf(display_limit, "limit:%dC        ", value_limit);
+              else if(value_limit >= 100)
+                sprintf(display_limit, "limit:%dC       ", value_limit);
+              else if(0 <= value_limit < 10)
+                sprintf(display_limit, "limit:%dC         ", value_limit);
+              else if(-10 < value_limit < 0)
+                sprintf(display_limit, "limit:%dC        ", value_limit);
+              else if(value_limit < -10)
+                sprintf(display_limit, "limit:%dC       ", value_limit);
+              Write_Commond(0x80);		//0x80为第一行的首地址
+              for(i=0; i<16; ++i)
+              {
+                    Write_Data(display_limit[i]);
+              }
+            }
+            else if(mode == 1)
+            {
+              if(value_limit <= value_max)
+                value_max --;
+              else
+                value_max ++;
+              memset(display_max,'\0',sizeof(display_max));
+              if(value_limit >= 10) 
+                sprintf(display_max, "max:%dC          ", value_max);
+              else if(value_limit >= 100) 
+                sprintf(display_max, "max:%dC         ", value_max);
+              else if(0 <= value_limit < 10) 
+                sprintf(display_max, "max:%dC           ", value_max);
+              else if(-10 < value_limit < 0) 
+                sprintf(display_max, "max:%dC          ", value_max);
+              else if(value_limit <= -10) 
+                sprintf(display_max, "max:%dC         ", value_max);
+              Write_Commond(0x80);		//0x80为第一行的首地址
+              for(i=0; i<16; ++i)
+              {
+                    Write_Data(display_max[i]);
+              }
             }
 	}
 	
 	else if(key1==0)
 	{
-            write_flag = 2;
-            value_max ++;
-            //SaveToTuple(display_max, value_max);
-            if(value_limit >= 10) 
-              sprintf(display_max, "max:%dC          ", value_max);
-            else if(value_limit >= 100) 
-              sprintf(display_max, "max:%dC         ", value_max);
-            else if(0 <= value_limit < 10) 
-              sprintf(display_max, "max:%dC           ", value_max);
-            else if(-10 < value_limit < 0) 
-              sprintf(display_max, "max:%dC          ", value_max);
-            else if(value_limit <= -10) 
-              sprintf(display_max, "max:%dC         ", value_max);
-            Write_Commond(0x80);		//0x80为第一行的首地址
-            for(i=0; i<16; ++i)
-            {
-                  Write_Data(display_max[i]);
-            }
+            write_flag = 1;
             
+            if(mode == 0)
+            {
+              if(value_limit <= value_max)
+                value_limit ++ ;
+              else
+                 value_limit -- ;
+              //SaveToTuple(display_limit, value_limit);
+              memset(display_limit,'\0',sizeof(display_limit));
+              if(value_limit >= 10) 
+                sprintf(display_limit, "limit:%dC        ", value_limit);
+              else if(value_limit >= 100)
+                sprintf(display_limit, "limit:%dC       ", value_limit);
+              else if(0 <= value_limit < 10)
+                sprintf(display_limit, "limit:%dC         ", value_limit);
+              else if(-10 < value_limit < 0)
+                sprintf(display_limit, "limit:%dC        ", value_limit);
+              else if(value_limit < -10)
+                sprintf(display_limit, "limit:%dC       ", value_limit);
+              Write_Commond(0x80);		//0x80为第一行的首地址
+              for(i=0; i<16; ++i)
+              {
+                    Write_Data(display_limit[i]);
+              }
+            }
+            else if(mode == 1)
+            {
+              value_max ++;
+              //SaveToTuple(display_max, value_max);
+              memset(display_max,'\0',sizeof(display_max));
+              if(value_limit >= 10) 
+                sprintf(display_max, "max:%dC          ", value_max);
+              else if(value_limit >= 100) 
+                sprintf(display_max, "max:%dC         ", value_max);
+              else if(0 <= value_limit < 10) 
+                sprintf(display_max, "max:%dC           ", value_max);
+              else if(-10 < value_limit < 0) 
+                sprintf(display_max, "max:%dC          ", value_max);
+              else if(value_limit <= -10) 
+                sprintf(display_max, "max:%dC         ", value_max);
+              Write_Commond(0x80);		//0x80为第一行的首地址
+              for(i=0; i<16; ++i)
+              {
+                    Write_Data(display_max[i]);
+              }
+            }       
 	}
 	
 	else if(key2==0&&write_flag)
 	{
-            if(write_flag == 1)
+            if(write_flag)
             {
-              SaveToEEPROM(0, value_limit);
-            }
-            else if(write_flag == 2)
-            {
-               SaveToEEPROM(4, value_max);
+              if(mode == 0)
+                SaveToEEPROM(0, value_limit);
+              else 
+                 SaveToEEPROM(4, value_max);
             }
              Write_Commond(0x80);
              for(i=0; i<16; ++i)
@@ -109,6 +164,8 @@ __interrupt void EXTI_PORTE_IRQHandler(void)
 	delay_ms(10);
 	if(key3==0)
 	{
-		;
+            if(mode == 0)
+              mode = 1;
+            else mode = 1;
 	}
 }

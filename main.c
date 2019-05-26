@@ -106,6 +106,7 @@ void ReadToBuffer(void)
 {
       memset(buffer_limit,'\0',sizeof(buffer_limit));
       memset(buffer_max,'\0',sizeof(buffer_max));
+      //读取下限
       if((EEPROM_Read(0) == '-')&&(EEPROM_Read(1) == '\0'))
       {
         if(EEPROM_Read(2) == '\0')
@@ -121,12 +122,9 @@ void ReadToBuffer(void)
            sprintf(buffer_limit, "%c%c", EEPROM_Read(0), EEPROM_Read(1));
          else 
            sprintf(buffer_limit, "%c%c%c", EEPROM_Read(0), EEPROM_Read(1), EEPROM_Read(2));
-      
-       // printf("buffer_limit:%s\n", buffer_limit);
-       // printf("buffer_limit:%s\n", buffer_limit);
       }
       
-      
+      //读取上限
        if((EEPROM_Read(4) == '-')&&(EEPROM_Read(5) == '\0'))
       {
         if(EEPROM_Read(6) == '\0')
@@ -142,9 +140,6 @@ void ReadToBuffer(void)
            sprintf(buffer_max, "%c%c", EEPROM_Read(4), EEPROM_Read(5));
          else 
            sprintf(buffer_max, "%c%c%c", EEPROM_Read(4), EEPROM_Read(5), EEPROM_Read(6));
-         
-        // printf("buffer_max:%s\n", buffer_max);
-       // printf("buffer_max:%s\n", buffer_max);
       }
       read_flag = 0;
 }
