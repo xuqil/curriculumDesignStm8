@@ -10,6 +10,7 @@
 #include "key.h"
 #include "stm8s_type.h"
 #include "handle.h"
+#include "beep.h"
 
 unsigned char arr0[16]="Temperature:    ";
 unsigned char arr1[16]="Welcom to use!  ";
@@ -30,6 +31,7 @@ int main(void)
     GPIO_KEY_Init();            //按键初始化
     __enable_interrupt();       //开启总中断
     LCD1602_Init();             //LCD初始化
+    GPIO_BEEP_Init();           //蜂鸣器初始化
     asm("rim");
     tempetature = DS18B20_ReadTemperature(); // 获取温度值
     ReadToBuffer();
@@ -77,10 +79,12 @@ int main(void)
           {
                Write_Data(buffer[i]);
           }
+          //越界警告
           if((value_limit > (int)tempetature)||(value_max <  (int)tempetature))
-          {
+          { 
+            BeepAlert();
             tempetature = DS18B20_ReadTemperature();
-             Write_Commond(0x80);		//0x80为第一行的首地址
+            Write_Commond(0x80);		//0x80为第一行的首地址
             for(i=0; i<16; ++i)
             {
                   Write_Data(alert[i]);
