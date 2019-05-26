@@ -8,7 +8,7 @@ int write_flag = 0;
 int read_flag = 0;
 
 int i;
-int mode=0; //模式选择，0设置下限，1设置上限
+int mode=0; //模式选择，0设置下限，-1设置上限
 char display_limit[16];
 char display_max[16];
 char save_string[16] = "    Succeed!    ";
@@ -60,7 +60,7 @@ __interrupt void EXTI_PORTA_IRQHandler(void)
                     Write_Data(display_limit[i]);
               }
             }
-            else if(mode == 1)
+            else if(mode == -1)
             {
               if(value_limit <= value_max)
                 value_max --;
@@ -113,7 +113,7 @@ __interrupt void EXTI_PORTA_IRQHandler(void)
                     Write_Data(display_limit[i]);
               }
             }
-            else if(mode == 1)
+            else if(mode == -1)
             {
               value_max ++;
               //SaveToTuple(display_max, value_max);
@@ -164,8 +164,6 @@ __interrupt void EXTI_PORTE_IRQHandler(void)
 	delay_ms(10);
 	if(key3==0)
 	{
-            if(mode == 0)
-              mode = 1;
-            else mode = 1;
+           mode = ~mode;
 	}
 }
