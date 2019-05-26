@@ -20,10 +20,9 @@ void ReadToBuffer(void);
 
 int main(void)
 {  
-    float tempetature;
+    float tempetature;          //温度
     int i;
-  
-    
+
     CLK_SWCR_SWEN = 1;
     CLK_SWR = 0xB4;             //主时钟
     
@@ -61,11 +60,6 @@ int main(void)
             value_max = atoi((char*)buffer_max); 
           }
           _delay_ms(1000);
-         // _delay_ms(1000);
-         // printf("下限：%d\n", value_limit);
-        //  printf("上限：%d\n", value_max);
-        
-
           tempetature = DS18B20_ReadTemperature();
           memset(buffer,'\0',sizeof(buffer)); //清空数组  
           if(tempetature < 0)

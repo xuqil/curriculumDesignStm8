@@ -9,6 +9,7 @@ int read_flag = 0;
 
 int i;
 int mode=0; //模式选择，0设置下限，-1设置上限
+//LCD显示数组
 char display_limit[16];
 char display_max[16];
 char save_string[16] = "    Succeed!    ";
@@ -36,11 +37,11 @@ void GPIO_KEY_Init(void)
 __interrupt void EXTI_PORTA_IRQHandler(void)
 {
 	delay_ms(10);		//延时消抖
-	if(key0==0)
+	if(key0==0)   //减
 	{
             write_flag = 1;
             
-            if(mode == 0)
+            if(mode == 0) //设置下限
             {
                value_limit -- ;
               memset(display_limit,'\0',sizeof(display_limit));
@@ -60,7 +61,7 @@ __interrupt void EXTI_PORTA_IRQHandler(void)
                     Write_Data(display_limit[i]);
               }
             }
-            else if(mode == -1)
+            else if(mode == -1)//设置上限
             {
               if(value_limit <= value_max)
                 value_max --;
@@ -85,11 +86,11 @@ __interrupt void EXTI_PORTA_IRQHandler(void)
             }
 	}
 	
-	else if(key1==0)
+	else if(key1==0)   //加
 	{
             write_flag = 1;
             
-            if(mode == 0)
+            if(mode == 0) //设置下限
             {
               if(value_limit <= value_max)
                 value_limit ++ ;
@@ -113,7 +114,7 @@ __interrupt void EXTI_PORTA_IRQHandler(void)
                     Write_Data(display_limit[i]);
               }
             }
-            else if(mode == -1)
+            else if(mode == -1) //设置上限
             {
               value_max ++;
               //SaveToTuple(display_max, value_max);
@@ -136,7 +137,7 @@ __interrupt void EXTI_PORTA_IRQHandler(void)
             }       
 	}
 	
-	else if(key2==0&&write_flag)
+	else if(key2==0&&write_flag) // 保存数据
 	{
             if(write_flag)
             {
