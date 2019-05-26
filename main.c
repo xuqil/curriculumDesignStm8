@@ -23,7 +23,7 @@ int main(void)
 {  
     float tempetature;          //ÎÂ¶È
     int i;
-
+    
     CLK_SWCR_SWEN = 1;
     CLK_SWR = 0xB4;             //Ö÷Ê±ÖÓ
     

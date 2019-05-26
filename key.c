@@ -142,7 +142,7 @@ __interrupt void EXTI_PORTA_IRQHandler(void)
             if(write_flag)
             {
               if(mode == 0)
-                SaveToEEPROM(0, value_limit);
+                 SaveToEEPROM(0, value_limit);
               else 
                  SaveToEEPROM(4, value_max);
             }

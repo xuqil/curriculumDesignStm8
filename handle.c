@@ -6,15 +6,7 @@
 void SaveToTuple(char tuple[], int value)
 {
   memset(value_str,'\0',sizeof(value_str)); //Çå¿ÕÊý×é   
-  if (0 <= value)
-  {
-    sprintf(tuple, "%d", value);
-  }
-  else if (value < 0)
-  {
-    value = -value;
-    sprintf(tuple, "%d", value);
-  }
+  sprintf(tuple, "%d", value);
 }
 
 /*****************************
