@@ -17,11 +17,11 @@
       <file>$PROJ_DIR$\Debug\Obj\handle.o</file>
       <file>$PROJ_DIR$\Debug\Obj\handle.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\stm8s_eeprom.pbi</file>
-      <file>$PROJ_DIR$\stm8s_type.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\key.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\key.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\stm8s_eeprom.o</file>
       <file>$PROJ_DIR$\handle.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\stm8s_eeprom.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\key.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\key.pbi</file>
+      <file>$PROJ_DIR$\stm8s_type.h</file>
       <file>$PROJ_DIR$\Debug\Obj\ds18b20.o</file>
       <file>$TOOLKIT_DIR$\inc\c\stdlib.h</file>
       <file>$PROJ_DIR$\Debug\Obj\usart2.o</file>
@@ -74,11 +74,11 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 26 17 31 42 11 45 38 48 37 36 20 27 50 49 34 40 15 22 28 33</file>
+          <file> 26 17 31 42 15 45 38 48 37 36 20 27 50 49 34 40 11 22 28 33</file>
         </tool>
         <tool>
           <name>ICCSTM8</name>
-          <file> 15 11 50 31 36 34 37 26 38 48 45 49 20 17 27 42 40 22 28 33</file>
+          <file> 11 15 50 31 36 34 37 26 38 48 45 49 20 17 27 42 40 22 28 33</file>
         </tool>
       </inputs>
     </file>
@@ -133,7 +133,7 @@
       <outputs>
         <tool>
           <name>BICOMP</name>
-          <file> 12</file>
+          <file> 14</file>
         </tool>
         <tool>
           <name>ICCSTM8</name>
@@ -143,11 +143,11 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 49 11 50 34 17 45 42 15 40 36 22 28 31 27 33 38 48 37 26 20 43</file>
+          <file> 49 15 50 34 17 45 42 11 40 36 22 28 31 27 33 38 48 37 26 20 43</file>
         </tool>
         <tool>
           <name>ICCSTM8</name>
-          <file> 27 42 40 22 11 50 31 36 34 37 26 38 48 45 49 28 15 20 17 33 43</file>
+          <file> 27 42 40 22 15 50 31 36 34 37 26 38 48 45 49 28 11 20 17 33 43</file>
         </tool>
       </inputs>
     </file>
@@ -189,11 +189,11 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 15 42 28 36 39 31 33 20 11 40 45 50 43 47 17 27 49 38 34 48 37 26 22</file>
+          <file> 11 42 28 36 39 31 33 20 15 40 45 50 43 47 17 27 49 38 34 48 37 26 22</file>
         </tool>
         <tool>
           <name>ICCSTM8</name>
-          <file> 42 40 50 31 36 34 37 26 38 48 45 49 33 43 39 47 20 17 28 11 27 22 15</file>
+          <file> 42 40 50 31 36 34 37 26 38 48 45 49 33 43 39 47 20 17 28 15 27 22 11</file>
         </tool>
       </inputs>
     </file>
@@ -206,7 +206,7 @@
         </tool>
         <tool>
           <name>ICCSTM8</name>
-          <file> 14</file>
+          <file> 12</file>
         </tool>
       </outputs>
       <inputs>
@@ -216,7 +216,7 @@
         </tool>
         <tool>
           <name>ICCSTM8</name>
-          <file> 28 42 40 11 50 31 36 34 37 26 38 48 45 49</file>
+          <file> 28 42 40 15 50 31 36 34 37 26 38 48 45 49</file>
         </tool>
       </inputs>
     </file>
@@ -257,7 +257,7 @@
       <inputs>
         <tool>
           <name>ILINK</name>
-          <file> 25 41 16 8 13 19 21 14 18 32 44</file>
+          <file> 25 41 16 8 13 19 21 12 18 32 44</file>
         </tool>
       </inputs>
     </file>

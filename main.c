@@ -13,14 +13,16 @@
 
 unsigned char arr0[16]="Temperature:    ";
 unsigned char arr1[16]="Welcom to use!  ";
+unsigned char alert[16]="Alert!  Alert!  ";
 char buffer[8];
-
+char buffer_limit[3], buffer_max[3]; //缓存
+void ReadToBuffer(void);
 
 int main(void)
 {  
     float tempetature;
     int i;
-    char buffer_limit[3], buffer_max[3]; //缓存
+  
     
     CLK_SWCR_SWEN = 1;
     CLK_SWR = 0xB4;             //主时钟
@@ -31,8 +33,7 @@ int main(void)
     LCD1602_Init();             //LCD初始化
     asm("rim");
     tempetature = DS18B20_ReadTemperature(); // 获取温度值
-    sprintf(buffer_limit, "%c%c", EEPROM_Read(0), EEPROM_Read(1));
-    sprintf(buffer_max, "%c%c", EEPROM_Read(4), EEPROM_Read(5));
+    ReadToBuffer();
     if(buffer_limit != '\0'|| buffer_max != '\0') //存储的数据不为空时,阈值从EEPROM取值
     {
       value_limit = atoi((char*)buffer_limit); 
@@ -55,16 +56,14 @@ int main(void)
          
           if (read_flag) //当重新设置阈值时
           {
-            memset(buffer_limit,'\0',sizeof(buffer_limit));
-            memset(buffer_max,'\0',sizeof(buffer_max));
-            sprintf(buffer_limit, "%c%c", EEPROM_Read(0), EEPROM_Read(1));
-            sprintf(buffer_max, "%c%c", EEPROM_Read(4), EEPROM_Read(5));
-            read_flag = 0;
+            ReadToBuffer();
+            value_limit = atoi((char*)buffer_limit); 
+            value_max = atoi((char*)buffer_max); 
           }
           _delay_ms(1000);
-          _delay_ms(1000);
-          printf("下限：%d", value_limit);
-          printf("上限：%d", value_max);
+         // _delay_ms(1000);
+         // printf("下限：%d\n", value_limit);
+        //  printf("上限：%d\n", value_max);
         
 
           tempetature = DS18B20_ReadTemperature();
@@ -84,9 +83,69 @@ int main(void)
           {
                Write_Data(buffer[i]);
           }
+          if((value_limit > (int)tempetature)||(value_max <  (int)tempetature))
+          {
+            tempetature = DS18B20_ReadTemperature();
+             Write_Commond(0x80);		//0x80为第一行的首地址
+            for(i=0; i<16; ++i)
+            {
+                  Write_Data(alert[i]);
+            }
+          }
+
       }
 
     }
 }
 
+
+/*****************************
+*      从EEPROM中读取阈值
+******************************/
+void ReadToBuffer(void)
+{
+      memset(buffer_limit,'\0',sizeof(buffer_limit));
+      memset(buffer_max,'\0',sizeof(buffer_max));
+      if((EEPROM_Read(0) == '-')&&(EEPROM_Read(1) == '\0'))
+      {
+        if(EEPROM_Read(2) == '\0')
+           sprintf(buffer_limit, "%c%c", EEPROM_Read(0), EEPROM_Read(1));
+        else
+          sprintf(buffer_limit, "%c%c%c", EEPROM_Read(0), EEPROM_Read(1), EEPROM_Read(2));
+      }
+      else
+      {        
+         if(EEPROM_Read(1) == '\0')
+            sprintf(buffer_limit, "%c", EEPROM_Read(0));
+         else if(EEPROM_Read(2) == '\0')
+           sprintf(buffer_limit, "%c%c", EEPROM_Read(0), EEPROM_Read(1));
+         else 
+           sprintf(buffer_limit, "%c%c%c", EEPROM_Read(0), EEPROM_Read(1), EEPROM_Read(2));
+      
+       // printf("buffer_limit:%s\n", buffer_limit);
+       // printf("buffer_limit:%s\n", buffer_limit);
+      }
+      
+      
+       if((EEPROM_Read(4) == '-')&&(EEPROM_Read(5) == '\0'))
+      {
+        if(EEPROM_Read(6) == '\0')
+           sprintf(buffer_max, "%c%c", EEPROM_Read(4), EEPROM_Read(5));
+        else
+          sprintf(buffer_max, "%c%c%c", EEPROM_Read(4), EEPROM_Read(5), EEPROM_Read(6));
+      }
+      else
+      {
+         if(EEPROM_Read(5) == '\0')
+            sprintf(buffer_max, "%c", EEPROM_Read(4));
+         else if(EEPROM_Read(6) == '\0')
+           sprintf(buffer_max, "%c%c", EEPROM_Read(4), EEPROM_Read(5));
+         else 
+           sprintf(buffer_max, "%c%c%c", EEPROM_Read(4), EEPROM_Read(5), EEPROM_Read(6));
+         
+        // printf("buffer_max:%s\n", buffer_max);
+       // printf("buffer_max:%s\n", buffer_max);
+      }
+      read_flag = 0;
+}
 
