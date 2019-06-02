@@ -1,3 +1,9 @@
+/***************************
+作者：许其龙
+时间：2019/5/23
+版本：V1.0
+email：xuqi19218@foxmail.com
+***************************/
 #include <iostm8s105c6.h>
 #include <stdio.h>
 #include "lcd1602.h"

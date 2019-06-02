@@ -1,3 +1,9 @@
+/***************************
+作者：许其龙
+时间：2019/5/23
+版本：V1.0
+email：xuqi19218@foxmail.com
+***************************/
 #ifndef __STM8S_EEPROM_H__
 #define __STM8S_EEPROM_H__
 
